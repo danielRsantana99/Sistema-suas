@@ -4,12 +4,11 @@ if (isset($_SESSION['mensagem'])) {
   $mensagem=$_SESSION['mensagem'];
 }
   if (isset($_SESSION['status'])) {   
-    
     if($_SESSION['status']==0){
         echo "<script>
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Oops',
             text:' $mensagem'
             
           })

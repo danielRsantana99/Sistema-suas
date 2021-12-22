@@ -2,7 +2,7 @@
  include_once 'cabecalho.php' ;
  include_once 'barra_horizontal.php' ;
  include_once 'menu.php' ;
- include_once 'alertas.php' ;
+ include_once 'alertas.php';
  include_once '../Model/Conexao.php' ;
  include_once '../Model/Usuario.php' ;
  include_once '../Model/Formulario.php' ;

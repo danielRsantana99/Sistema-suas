@@ -38,7 +38,7 @@ foreach ($res as $key => $value) {
           <center>  
             <h1 class="m-0">
               <b>
-                MEUS DADOS
+                DADOS
               </b>
             </h1>
           </center>
@@ -55,12 +55,13 @@ foreach ($res as $key => $value) {
 <!-- form start -->
 <!-- form start -->
 <form action="../Controller/Editar_usuario.php" method="POST">
+  <input type="hidden" name="id" id="id" value='<?php echo $id; ?>'>
   <div class="card-body">
     <div class="row" >
       <div class="col-sm-4">
         <div class="form-group">
          <label for="nome">NOME</label>
-         <input type="text" class="form-control" value='<?php echo $nome; ?>' >
+         <input type="text" class="form-control" id="nome" name="nome"  value='<?php echo $nome; ?>' >
         </div>
       </div> 
       <div class="col-sm-4">

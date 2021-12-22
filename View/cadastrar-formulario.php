@@ -384,7 +384,7 @@ $beneficios = array();
           <select class="form-control"  id="beneficios" name="beneficios" >
           <?php
 
-            $res = $beneficio->pesquisar_todos_beneficios($conexao);
+            $res = $beneficio->pesquisar_beneficios_disponivel($conexao);
             foreach ($res as $key => $value) {
               $id_beneficio = $value['id'];
               $nome = $value['nome'];
@@ -450,7 +450,7 @@ $beneficios = array();
       </div> 
     </div>
     <div class="card-footer">
-     <button type="submit" class="btn btn-block btn-primary">Concluir</button>
+     <button type="submit" class="btn btn-block btn-primary" onclick="apagar_temporario();">Concluir</button>
     </div>
   </div>
 </form>

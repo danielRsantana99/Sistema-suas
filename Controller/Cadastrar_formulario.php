@@ -57,10 +57,11 @@ try {
             $sexo_familiar = $_POST['sexo_familiar'][$key];
             $parentesco = $_POST['parentesco'][$key];
             $idade_familiar = $_POST['idade_familiar'][$key];
-            $escolaridade = $_POST['escolaridade'][$key];
+            $escolaridade = $_POST['escolaridade_familiar'][$key];
             $renda_familiar = $_POST['renda_familiar'][$key];
+            $profissao_familiar = $_POST['profissao_familiar'][$key];
 
-            $use2->cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome_familiar,$sexo_familiar,$parentesco,$idade_familiar,$escolaridade,$renda_familiar);
+            $use2->cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome_familiar,$sexo_familiar,$parentesco,$idade_familiar,$escolaridade,$renda_familiar,$profissao_familiar);
         }   
           
         foreach ( $_POST['beneficios'] as $key => $value) {
@@ -70,15 +71,16 @@ try {
             $use->cadastrar_relacao_beneficio_beneficiario($conexao,$id_beneficiario,$id_beneficios,$tempo_beneficio);
                
         }   
-      
+
+        $_SESSION['mensagem'] = 'cadastro realizado com sucesso!';
         $_SESSION['status'] = 1;
-        header("location:../View/cadastrar-formulario.php");
+        header("location:../View/formulario.php");
+
     }else{
 
-    echo "<script type='text/javascript'>alert('Ja existe um cadastro com o CPF,RG e o nome solicitado!!!');</script>";
-
-  
-
+        $_SESSION['mensagem'] = 'beneficiario ja cadastrado no sistema!!!';
+        $_SESSION['status'] = 0;
+        header("location:../View/cadastrar-formulario.php");
     }
 
 
@@ -86,6 +88,7 @@ try {
 
         
 } catch (Exception $exc) {
+    $_SESSION['mensagem'] = 'beneficiario ja cadastrado no sistema!!!';
     $_SESSION['status'] = 0;
    //header("location:../View/painel.php");
    echo $exc;

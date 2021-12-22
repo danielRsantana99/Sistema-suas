@@ -2,8 +2,8 @@
 
 class familiarModel{
 
-    public function cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome,$sexo,$parentesco,$idade,$escolaridade,$renda){
-    $sql = $conexao->prepare("INSERT INTO familiar (id_beneficiario,nome,sexo,parentesco,idade,escolaridade,renda)VALUES(:id_beneficiario, :nome, :sexo, :parentesco, :idade, :escolaridade, :renda)");
+    public function cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome,$sexo,$parentesco,$idade,$escolaridade,$renda,$profissao){
+    $sql = $conexao->prepare("INSERT INTO familiar (id_beneficiario,nome,sexo,parentesco,idade,escolaridade,renda,profissao)VALUES(:id_beneficiario, :nome, :sexo, :parentesco, :idade, :escolaridade, :renda,:profissao)");
       
       $sql->execute(array(
           'id_beneficiario' =>$id_beneficiario,
@@ -13,6 +13,7 @@ class familiarModel{
           'idade' =>$idade,
           'escolaridade'=>$escolaridade,
           'renda' =>$renda,
+          'profissao' =>$profissao
        ));
     }
 

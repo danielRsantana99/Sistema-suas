@@ -11,7 +11,7 @@ $beneficio = new beneficiosModel();
 $res = $beneficio->pesquisar_todos_beneficios($conexao);
 ?>
   <!-- Main Sidebar Container -->
-  <script src="ajax.js?<?php echo rand(); ?>"></script>
+   <script src="ajax.js?<?php echo rand(); ?>"></script>
 <div class="content-wrapper">
 <!-- ####################### CORPO ################################################# -->
 
@@ -68,7 +68,8 @@ $res = $beneficio->pesquisar_todos_beneficios($conexao);
             <table class="table table-hover text-nowrap">
                <thead>
                   <tr>
-                      <th>NOME</th>                      
+                      <th>NOME</th>
+                      <th>OPÇÕES</th>                                            
                   </tr>
               </thead>
               <tbody>
@@ -76,11 +77,30 @@ $res = $beneficio->pesquisar_todos_beneficios($conexao);
                 foreach ($res as $key => $value) {
                 $id = $value['id'];
                 $nome = $value['nome'];
-               
+                $status = $value['status'];
                 echo"<tr id='div_$id'>
-                      <td>$nome</td>
-                      </tr>
-                ";
+                      <td>$nome</td> 
+                      <td id ='status_beneficio$id' name ='status_beneficio$id'>";
+                      if($status == 'ATIVADO'){
+                          
+                          echo"<form name='desativar$id' method='GET'>
+                         <input type='hidden' value='DESATIVADO' id='novo_status$id' name='novo_status$id'>
+                         <input type='hidden' value=$id id='id' name='id'>
+                         <button type='submit' class='btn btn-danger' onclick='mudar_status_beneficio($id);'>DESATIVAR</button>
+                          </form>";
+
+                       }
+                       else if($status == 'DESATIVADO')
+                       {
+                          echo"<form name='ativar$id' method='GET'>
+                          <input type='hidden' value='ATIVADO' id='novo_status$id'  name='novo_status$id'>
+                          <input type='hidden' value=$id id='id' name='id'>
+                          <button type='submit' class='btn btn-primary' onclick='mudar_status_beneficio($id);' >ATIVAR</button>
+                          </form>";
+                       }
+                echo"
+                </td>
+                </tr>";
               }
                  ?>
               </tbody>

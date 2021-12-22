@@ -395,7 +395,7 @@ include_once "../Model/Beneficios.php";
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">NOME</label>
-         <input type="text" class="form-control" id="nome_familia">
+         <input type="text" class="form-control" id="nome_familiar">
         </div>
       </div>
       <div class="col-sm-3">
@@ -432,7 +432,7 @@ include_once "../Model/Beneficios.php";
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">ESCOLARIDADE</label>
-         <input type="text" class="form-control" id="escolaridade" >
+         <input type="text" class="form-control" id="escolaridade_familiar" >
         </div>
       </div>
       <div class="col-sm-3">
@@ -475,7 +475,7 @@ include_once "../Model/Beneficios.php";
               $id_familiar = $value['id'];
               $nome_familiar = $value['nome'];
               $sexo_familiar = $value['sexo'];
-              $parentesco_familiar= $value['parentesco'];
+              $parentesco= $value['parentesco'];
               $idade_familiar = $value['idade'];
               $escolaridade_familiar = $value['escolaridade'];
               $renda_familiar = $value['renda'];
@@ -486,11 +486,11 @@ include_once "../Model/Beneficios.php";
 
                       <td><input type='hidden' class='form-control' id='sexo_familiar' name='sexo_familiar[]' value='$sexo_familiar' >$sexo_familiar</td>
 
-                      <td><input type='hidden' class='form-control' id='parentesco_familiar' name='parentesco_familiar[]' value='$parentesco_familiar' >$parentesco_familiar</td>
+                      <td><input type='hidden' class='form-control' id='parentesco' name='parentesco[]' value='$parentesco' >$parentesco</td>
 
                       <td><input type='hidden' class='form-control' id='idade_familiar' name='idade_familiar[]' value='$idade_familiar'>$idade_familiar</td>
 
-                      <td><input type='hidden' class='form-control' id='escolaridade' name='escolaridade[]'  value='$escolaridade'>$escolaridade</td>
+                      <td><input type='hidden' class='form-control' id='escolaridade_familiar' name='escolaridade_familiar[]'  value='$escolaridade_familiar'>$escolaridade_familiar</td>
 
                       <td><input type='hidden' class='form-control' id='renda_familiar' name='renda_familiar[]'  value='$renda_familiar'>$renda_familiar</td>
 
@@ -512,7 +512,7 @@ include_once "../Model/Beneficios.php";
           <label for="exampleInputEmail1">BENEFÍCIOS</label>
           <select class="form-control"  id="beneficios" name="beneficios" >
           <?php
-            $res = $beneficio->pesquisar_todos_beneficios($conexao);
+            $res = $beneficio->pesquisar_beneficios_disponivel($conexao);
             foreach ($res as $key => $value) {
               $id_beneficio = $value['id'];
               $nome = $value['nome'];
@@ -554,6 +554,7 @@ include_once "../Model/Beneficios.php";
               foreach ($res2 as $key => $value) {
                 $id_relacao = $value['id'];
                 $id_beneficio = $value['id_beneficio'];
+                $beneficio->registrar_beneficio_temporario($conexao,$id_beneficio,$_SESSION['id']);
                 $tempo_beneficio = $value['tempo_recebimento'];
                 $res_beneficio = $beneficio->pesquisar_beneficios($conexao,$id_beneficio);
                 foreach ($res_beneficio as $key => $value){
@@ -562,12 +563,14 @@ include_once "../Model/Beneficios.php";
                 echo"<tr id='div_$id_beneficio'>
                         <td><input type='hidden' class='form-control' id='beneficios' name='beneficios[] 'value='$id_beneficio' >$nome_beneficio</td>
                         <td><input type='hidden' class='form-control' id='tempo_beneficio' name='tempo_beneficio[]' 'value='$tempo_beneficio' >$tempo_beneficio</td>
-                        <td><a class='btn btn-danger' onclick=;remover_beneficio('div_$id_beneficio');remover_beneficio2($id,$id_beneficio); >Apagar</a></td>
+                        <td><a class='btn btn-danger' onclick=;remover_beneficio('div_$id_beneficio',$id_beneficio);remover_beneficio2($id,$id_beneficio); >Apagar</a></td>
                       </td>
                       </tr>
                 ";
-              }
+              }             
+
              ?>
+
             </tbody>
         </table>
       </div>
@@ -595,7 +598,7 @@ include_once "../Model/Beneficios.php";
       </div> 
     </div>
     <div class="card-footer">
-     <button type="submit" class="btn btn-block btn-primary">Concluir</button>
+     <button type="submit" class="btn btn-block btn-primary" onclick="apagar_temporario();">Concluir</button>
     </div>
   </div>
 </form>
@@ -608,4 +611,33 @@ include_once "../Model/Beneficios.php";
 
 <!-- ######################################################################## -->
 </div>
+<script type="text/javascript">
+  function revalidar_beneficio(){
+    var result = document.getElementById('beneficios');
+    result.options.length = 0;
+     
+        var xmlreq = CriaRequest();
+        xmlreq.open("GET", "../Controller/revalidarBeneficio.php", true);
+
+        xmlreq.onreadystatechange = function(){
+      
+         if (xmlreq.readyState == 4) {
+             if (xmlreq.status == 200) {
+                   result.innerHTML = xmlreq.responseText;
+             }else{
+                   alert('Erro desconhecido, verifique sua conexão com a internet');
+
+                result.innerHTML ="Erro ao receber mensagens";                 
+             }
+         }
+        };
+     xmlreq.send(null);
+
+    
+   
+  }
+  setTimeout("revalidar_beneficio()",400);
+  
+</script>
+
 <?php include_once "rodape.php"; ?>

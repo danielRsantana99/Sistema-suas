@@ -43,22 +43,21 @@ try {
     $parecer_tecnico = $_POST['parecer_tecnico'];
     $situacao = $_POST['situacao'];
 
-    $use->apagar_relacao_beneficio_beneficiario($conexao,$id_beneficiario);
-    $use2->apagar_familiar($conexao,$id_beneficiario);
   
     $use->editar_formulario($conexao,$id_beneficiario,$nome,$sexo,$data_nascimento,$estado_civil,$escolaridade_beneficiario,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo_moradia,$qual_tipo,$numero_comodos,$presenca_idoso,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiente,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico,$situacao);
 
-    
+    $use2->apagar_familiar($conexao,$id_beneficiario);
 
     foreach ( $_POST['nome_familiar'] as $key => $value) {
         $nome_familiar = $_POST['nome_familiar'][$key];
         $sexo_familiar = $_POST['sexo_familiar'][$key];
         $parentesco = $_POST['parentesco'][$key];
         $idade_familiar = $_POST['idade_familiar'][$key];
-        $escolaridade = $_POST['escolaridade'][$key];
+        $escolaridade = $_POST['escolaridade_familiar'][$key];
         $renda_familiar = $_POST['renda_familiar'][$key];
+        $profissao_familiar = $_POST['profissao_familiar'][$key];
 
-        $use2->cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome_familiar,$sexo_familiar,$parentesco,$idade_familiar,$escolaridade,$renda_familiar);
+        $use2->cadastrar_composicao_familiar($conexao,$id_beneficiario,$nome_familiar,$sexo_familiar,$parentesco,$idade_familiar,$escolaridade,$renda_familiar,$profissao_familiar);
     }   
     
     
@@ -66,15 +65,19 @@ try {
     foreach ( $_POST['beneficios'] as $key => $value) {
         $id_beneficios = $_POST['beneficios'][$key];
         $tempo_beneficio = $_POST['tempo_beneficio'][$key];
-        $use->cadastrar_relacao_beneficio_beneficiario($conexao,$id_beneficiario,$id_beneficios,$tempo_beneficio);
+        if($tempo_beneficio > 0){
+           $use->cadastrar_relacao_beneficio_beneficiario($conexao,$id_beneficiario,$id_beneficios,$tempo_beneficio); 
+        }
+        
        
     }   
-  
+    $_SESSION['mensagem'] = 'beneficiario editado com sucesso!!!'; 
     $_SESSION['status'] = 1;
 
      header("location:../View/pesquisar_formulario.php");
     
 } catch (Exception $exc) {
+    $_SESSION['mensagem'] = 'beneficiario não foi editado com sucesso!!!'; 
     $_SESSION['status'] = 0;
    //header("location:../View/painel.php");
    echo $exc;

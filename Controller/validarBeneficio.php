@@ -6,22 +6,27 @@ include "../Model/Beneficios.php";
 try {
     $result="";
     $use = new beneficiosModel(); 
+    $array = [];
+    $arraytemporario = [];
+    $arraynome = [];
 
     $beneficio = $_GET['beneficio'];
-    $use->registrar_beneficio_temporario($conexao,$beneficio);
+    $use->registrar_beneficio_temporario($conexao,$beneficio,$_SESSION['id']);
 
-    $res = $use->pesquisar_todos_beneficios($conexao);
+    $res = $use->pesquisar_beneficios_disponivel($conexao);
     foreach ($res as $key => $value) {
-        $id = $value['id'];
-        $nome = $value['nome'];
-        $confirma = $use->pesquisar_temporarios($conexao);
+        $array[] = $value['id'];
+        $arraynome[] = $value['nome'];
     }
-    foreach ($confirma as $key => $value) {
-        $idpassado = $value['id_beneficio'];
-        if ($id != $idpassado) {
-            $result.="<option value='$id'>$nome</option>"; 
-        }
+    $confirma = $use->pesquisar_temporarios($conexao,$_SESSION['id']);
+        foreach ($confirma as $key => $value) {
+        $arraytemporario[] = $value['id_beneficio'];
     }
+    $resultado = array_diff($array,$arraytemporario);
+    foreach ($resultado as $key => $value) {
+        $result.="<option value='$array[$key]'>$arraynome[$key]</option>"; 
+    }
+    
     echo "$result";
     
 } catch (Exception $exc) {

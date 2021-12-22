@@ -53,7 +53,7 @@ foreach ($res as $key => $value) {
 <!-- /.card-header -->
 <!-- form start -->
 <!-- form start -->
-<form action="../Controller/Editar_usuario.php" method="POST">
+<form action="../Controller/Editar_dados.php" method="POST">
   <div class="card-body">
     <div class="row" >
       <div class="col-sm-4">

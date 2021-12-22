@@ -1,6 +1,8 @@
 <?php
 	session_start();
+    include_once "cabecalho.php";
 	include_once "alertas.php";
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">

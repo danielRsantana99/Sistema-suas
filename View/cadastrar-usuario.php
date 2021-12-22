@@ -45,19 +45,19 @@ $usuario = new usuarioModel();
       <div class="col-sm-4">
         <div class="form-group">
          <label for="nome">NOME</label>
-         <input type="text" class="form-control" id="nome" name="nome" >
+         <input type="text" class="form-control" id="nome" name="nome" required>
         </div>
       </div> 
       <div class="col-sm-4">
         <div class="form-group">
          <label for="nome">CPF</label>
-         <input type="numeric" class="form-control" id="cpf" name="cpf" >
+         <input type="numeric" class="form-control" id="cpf" name="cpf" required>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
          <label for="nome">EMAIL</label>
-         <input type="text" class="form-control" id="email" name="email" >
+         <input type="text" class="form-control" id="email" name="email" required>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@ $usuario = new usuarioModel();
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">SENHA</label>
-         <input type="text" class="form-control" id="senha" name="senha" >
+         <input type="password" class="form-control" id="senha" name="senha" required>
         </div>
       </div>
       <div class="col-sm-3">

@@ -2,19 +2,16 @@
 
 class usuarioModel{
 
-    public function cadastrar_usuario($conexao,$nome,$whatsapp,$cpf,$email,$senha,$nivelAcesso,$unidade) {
-    $sql = $conexao->prepare("INSERT INTO usuario (nome,whatsapp,cpf,email,senha,nivel_acesso_id,unidade,status)VALUES(:nome,:whatsapp,:cpf,:email,:senha,:nivelAcesso,1)");
+    public function cadastrar_usuario($conexao,$nome,$whatsapp,$cpf,$email,$senha,$nivelAcesso) {
+    $sql = $conexao->prepare("INSERT INTO usuario (nome,whatsapp,cpf,email,senha,nivel_acesso_id,status,status_conta)VALUES(:nome,:whatsapp,:cpf,:email,:senha,:nivelAcesso,1,'ATIVADO')");
       
       $sql->execute(array(
           'nome' => $nome,
           'whatsapp' => $whatsapp,
           'cpf' => $cpf,
-          'nome' => $nome,
           'email' =>$email,
           'senha'=>$senha,
-          'nivelAcesso' => $nivelAcesso,
-          )
-    );
+          'nivelAcesso' => $nivelAcesso));
     }
 
     public function cadastrar_unidade($conexao,$nome) {
@@ -29,7 +26,7 @@ class usuarioModel{
         return $sql->fetchAll();
     }
 
-     public function cadastrar_relacao_usuario_unidade($conexao,$id_usuario,$unidade) {
+    public function cadastrar_relacao_usuario_unidade($conexao,$id_usuario,$unidade) {
     $sql = $conexao->prepare("INSERT INTO relacao_usuario_unidade (id_usuario,id_unidade)VALUES(:id_usuario,:unidade)");
       
       $sql->execute(array(
@@ -38,12 +35,34 @@ class usuarioModel{
     );
     }
 
-    public function editar_usuario($conexao,$id,$whatsapp,$email,$unidade) {
-    $sql = $conexao->prepare("UPDATE usuario,relacao_usuario_unidade SET usuario.whatsapp = :whatsapp, usuario.email = :email relacao_usuario_unidade.id_unidade = :unidade where relacao_usuario_unidade.id_usuario = usuario.id AND usuario.id =:id");
+     public function editar_relacao_usuario_unidade($conexao,$id_usuario,$unidade) {
+    $sql = $conexao->prepare("UPDATE relacao_usuario_unidade SET id_unidade=:unidade WHERE id_usuario =:id_usuario ");
+      
+       $sql->bindParam(":unidade", $unidade);
+       $sql->bindParam(":id_usuario", $id_usuario);
+       $sql->execute();
+    }
+
+    public function apagar_relacao_usuario_unidade($conexao,$id) {
+      $sql = $conexao->prepare("DELETE FROM relacao_usuario_unidade where id_usuario =:id");
+        $sql->execute(array('id' =>$id));
+    }
+
+    public function editar_dados($conexao,$id,$whatsapp,$email) {
+    $sql = $conexao->prepare("UPDATE usuario,relacao_usuario_unidade SET usuario.whatsapp = :whatsapp, usuario.email = :email where relacao_usuario_unidade.id_usuario = usuario.id AND usuario.id =:id");
       
         $sql->bindParam(":whatsapp", $whatsapp);
         $sql->bindParam(":email", $email);
-        $sql->bindParam(":unidade", $email);
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+    }
+
+    public function editar_usuario($conexao,$id,$nome,$whatsapp,$email) {
+    $sql = $conexao->prepare("UPDATE usuario,relacao_usuario_unidade SET usuario.whatsapp = :whatsapp, usuario.email = :email,usuario.nome =:nome where relacao_usuario_unidade.id_usuario = usuario.id AND usuario.id =:id");
+      
+        $sql->bindParam(":whatsapp", $whatsapp);
+        $sql->bindParam(":email", $email);
+        $sql->bindParam(":nome", $nome);
         $sql->bindParam(":id", $id);
         $sql->execute();
     }
@@ -81,13 +100,13 @@ class usuarioModel{
         return $sql->fetchAll();
     }
 
-     public function pesquisar_usuario_validar($conexao,$nome,$cpf){
-      $sql = $conexao->prepare("SELECT FROM usuario WHERE nome LIKE :nome AND cpf =:cpf )");
+    public function pesquisar_usuario_validar($conexao,$nome,$cpf){
+      $sql = $conexao->prepare("SELECT * FROM usuario WHERE nome LIKE :nome AND cpf =:cpf");
       
         $sql->execute(array(
               'cpf'=>$cpf,
-              'nome'=>'%'.$nome.'%')
-      );
+              'nome'=>'%'.$nome.'%'
+            ));
         return $sql->fetchAll();
     }
 

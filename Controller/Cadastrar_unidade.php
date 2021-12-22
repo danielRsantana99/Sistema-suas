@@ -15,14 +15,19 @@ try {
 
     if($cadastro == 0){
     $use->cadastrar_unidade($conexao,$nome);
+    $_SESSION['mensagem'] = 'cadastro realizado com sucesso!';
     $_SESSION['status'] = 1;
      header("location:../View/cadastrar-unidade.php");
 
     }else{
-        echo "<script type='text/javascript'>alert('Ja existe uma unidade com este nome !!!');</script>";
+        $_SESSION['mensagem'] = 'unidade ja cadastrada no sistema!!';
+        $_SESSION['status'] = 0;
+        header("location:../View/cadastrar-unidade.php");
+
     }
     
 } catch (Exception $exc) {
+    $_SESSION['mensagem'] = 'unidade ja cadastrada no sistema!!';
     $_SESSION['status'] = 0;
    header("location:../View/cadastrar-unidade.php");
    // echo $exc;

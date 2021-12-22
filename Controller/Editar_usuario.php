@@ -6,19 +6,25 @@ try {
 
     $use = new usuarioModel();
     
-    $id = $_SESSION['id'];
+    $id = $_POST['id'];
     $whatsapp = $_POST['whatsapp']; 
     $email = $_POST['email']; 
+    $unidade = $_POST['unidade'];
+    $nome = $_POST['nome'];
    
-    $use->editar_usuario($conexao,$id,$whatsapp,$email);
+    $use->editar_usuario($conexao,$id,$nome,$whatsapp,$email);   
+    $use->editar_relacao_usuario_unidade($conexao,$id,$unidade); 
 
+    $_SESSION['mensagem'] = 'usuario editado com sucesso!!!'; 
     $_SESSION['status'] = 1;
 
-     header("location:../View/meus-dados.php");
+    header("location:../View/cadastrar-usuario.php");
     
 } catch (Exception $exc) {
-    $_SESSION['status'] = 0;
-   //header("location:../View/painel.php");
+   // $_SESSION['mensagem'] = 'usuario não editado!!!';
+    //$_SESSION['status'] = 0;
+    //header("location:../View/painel.php");
+
    echo $exc;
 }
 ?>

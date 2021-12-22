@@ -53,13 +53,13 @@ $res = $formulario->pesquisar_formulario2($conexao,$id);
           <div class="col-sm-2">
             <div class="form-group">
              <label for="exampleInputEmail1">DATA INICIAL</label>
-             <input type="date" class="form-control" name="data_inicial" id="data_inicial">
+             <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
             </div>
           </div>
           <div class="col-sm-2">
             <div class="form-group">
              <label for="exampleInputEmail1">DATA FINAL</label>
-             <input type="date" class="form-control" name="data_final" id="data_final">
+             <input type="date" class="form-control" name="data_final" id="data_final" required>
             </div>
           </div>
           <div class="col-sm-3">

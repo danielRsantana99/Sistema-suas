@@ -15,16 +15,22 @@ try {
 
     if($cadastro == 0){
         $use->cadastrar_beneficios($conexao,$nome);
-
+        $_SESSION['mensagem'] = 'cadastro realizado com sucesso!';
         $_SESSION['status'] = 1;
         header("location:../View/cadastrar-beneficio.php");
     }else{
-        echo "<script type='text/javascript'>alert('Ja existe um beneficio com este nome !!!');</script>";
+
+    $_SESSION['mensagem'] = 'beneficio ja cadastrada no sistema';
+    $_SESSION['status'] = 0;
+    header("location:../View/cadastrar-beneficio.php");
+
+        
     }
     
     
     
 } catch (Exception $exc) {
+    $_SESSION['mensagem'] = 'cadastro não realizado!';
     $_SESSION['status'] = 0;
    header("location:../View/cadastrar-beneficio.php");
    // echo $exc;
