@@ -1,4 +1,5 @@
 <?php 
+  session_start();
  include_once 'cabecalho.php' ;
  include_once 'barra_horizontal.php' ;
  include_once 'menu.php' ;

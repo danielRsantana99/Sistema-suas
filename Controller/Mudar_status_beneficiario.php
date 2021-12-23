@@ -18,7 +18,7 @@ try {
     
 } catch (Exception $exc) {
     $_SESSION['status'] = 0;
-   header("location:../View/cadastrar-beneficio.php");
+   header("location:../View/pesquisar_formulario.php");
    // echo $exc;
 }
 ?>

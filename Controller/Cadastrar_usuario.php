@@ -21,7 +21,7 @@ try {
     }
 
     if($cadastro == 0){
-        $use->cadastrar_usuario($conexao,$nome,$whatsapp,$cpf,$email,$senha,$nivelAcesso,$unidade);
+        $use->cadastrar_usuario($conexao,$nome,$whatsapp,$cpf,$email,$senha,$nivelAcesso);
         $id_usuario = $conexao->lastInsertId();
 
         $use->cadastrar_relacao_usuario_unidade($conexao,$id_usuario,$unidade);

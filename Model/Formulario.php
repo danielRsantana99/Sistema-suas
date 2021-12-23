@@ -9,15 +9,16 @@ class formularioModel{
         return $sql->fetchAll();
     }
 
-    public function cadastrar_formulario($conexao,$nome,$sexo,$data_nascimento,$estado_civil,$escolaridade,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo,$qual_tipo,$numero_comodos,$presenca_idosos,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiencia,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico_servico_social,$contratador,$situacao,$status) {
-      $sql = $conexao->prepare("INSERT INTO beneficiario (nome,sexo,data_nascimento,estado_civil,escolaridade,endereco,ponto_referencia,telefone,rg,cpf,titulo_eleitoral,zona_eleitoral,secao_eleitoral,nis,empregado,renda_propria,bolsa_familia,quanto_bolsa_familia,moradia,quanto_moradia,tipo_moradia,outros_qual,n_comodos,presenca_idosos,presenca_gestante, quantos_meses_gestante,presenca_deficiente,qual_deficiencia,agua_filtrada,qual_agua_filtrada,parecer_tecnico_servico_social,id_contratador,situacao,status)
-      VALUES(:nome, :sexo, :data_nascimento,  :estado_civil, :escolaridade, :endereco, :ponto_referencia, :telefone, :rg, :cpf, :titulo_eleitoral, :zona, :secao, :nis, :empregado, :renda_propria, :bolsa_familia, :quanto_bolsa_familia, :moradia, :quanto_moradia, :tipo_moradia, :outros_qual, :n_comodos, :presenca_idosos, :presenca_gestante, :quantos_meses_gestante, :presenca_deficiente, :qual_deficiencia, :agua_filtrada, :qual_agua_filtrada, :parecer_tecnico_servico_social,:contratador,:situacao,:status)");
+    public function cadastrar_formulario($conexao,$nome,$sexo,$data_nascimento,$idade,$estado_civil,$escolaridade,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo,$qual_tipo,$numero_comodos,$presenca_idosos,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiencia,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico_servico_social,$contratador,$situacao,$status) {
+      $sql = $conexao->prepare("INSERT INTO beneficiario (nome,sexo,data_nascimento,idade,estado_civil,escolaridade,endereco,ponto_referencia,telefone,rg,cpf,titulo_eleitoral,zona_eleitoral,secao_eleitoral,nis,empregado,renda_propria,bolsa_familia,quanto_bolsa_familia,moradia,quanto_moradia,tipo_moradia,outros_qual,n_comodos,presenca_idosos,presenca_gestante, quantos_meses_gestante,presenca_deficiente,qual_deficiencia,agua_filtrada,qual_agua_filtrada,parecer_tecnico_servico_social,id_contratador,situacao,status)
+      VALUES(:nome, :sexo, :data_nascimento,:idade,  :estado_civil, :escolaridade, :endereco, :ponto_referencia, :telefone, :rg, :cpf, :titulo_eleitoral, :zona, :secao, :nis, :empregado, :renda_propria, :bolsa_familia, :quanto_bolsa_familia, :moradia, :quanto_moradia, :tipo_moradia, :outros_qual, :n_comodos, :presenca_idosos, :presenca_gestante, :quantos_meses_gestante, :presenca_deficiente, :qual_deficiencia, :agua_filtrada, :qual_agua_filtrada, :parecer_tecnico_servico_social,:contratador,:situacao,:status)");
       
       $sql->execute(
         array(
           'nome' => $nome,
           'sexo' =>$sexo,
           'data_nascimento' =>$data_nascimento,
+          'idade' =>$idade,
           'estado_civil' =>$estado_civil,
           'escolaridade' =>$escolaridade,
           'endereco' =>$endereco,
@@ -52,13 +53,14 @@ class formularioModel{
     );
     }
 
-     public function editar_formulario($conexao,$id,$nome,$sexo,$data_nascimento,$estado_civil,$escolaridade,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo,$qual_tipo,$numero_comodos,$presenca_idosos,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiencia,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico_servico_social,$situacao) {
+     public function editar_formulario($conexao,$id,$nome,$sexo,$data_nascimento,$idade,$estado_civil,$escolaridade,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo,$qual_tipo,$numero_comodos,$presenca_idosos,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiencia,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico_servico_social,$situacao) {
         
-        $sql = $conexao->prepare("UPDATE beneficiario SET nome = :nome, sexo = :sexo, data_nascimento = :data_nascimento, estado_civil = :estado_civil , escolaridade = :escolaridade, endereco = :endereco, ponto_referencia = :ponto_referencia, telefone =:telefone,rg =:rg, cpf=:cpf,titulo_eleitoral=:titulo_eleitoral, zona_eleitoral=:zona, secao_eleitoral=:secao, nis=:nis, empregado=:empregado, renda_propria=:renda_propria,bolsa_familia=:bolsa_familia, quanto_bolsa_familia=:quanto_bolsa_familia, moradia=:moradia,quanto_moradia=:quanto_moradia, tipo_moradia=:tipo,   outros_qual=:qual_tipo, n_comodos =:numero_comodos, presenca_idosos=:presenca_idosos, presenca_gestante=:presenca_gestante, quantos_meses_gestante=:meses_gestantes, presenca_deficiente=:presenca_deficiente, qual_deficiencia=:qual_deficiencia,agua_filtrada=:agua_filtrada, qual_agua_filtrada=:qual_agua_filtrada, parecer_tecnico_servico_social=:parecer_tecnico_servico_social,situacao=:situacao where id =:id");
+        $sql = $conexao->prepare("UPDATE beneficiario SET nome = :nome, sexo = :sexo, data_nascimento = :data_nascimento,idade =:idade, estado_civil = :estado_civil , escolaridade = :escolaridade, endereco = :endereco, ponto_referencia = :ponto_referencia, telefone =:telefone,rg =:rg, cpf=:cpf,titulo_eleitoral=:titulo_eleitoral, zona_eleitoral=:zona, secao_eleitoral=:secao, nis=:nis, empregado=:empregado, renda_propria=:renda_propria,bolsa_familia=:bolsa_familia, quanto_bolsa_familia=:quanto_bolsa_familia, moradia=:moradia,quanto_moradia=:quanto_moradia, tipo_moradia=:tipo,   outros_qual=:qual_tipo, n_comodos =:numero_comodos, presenca_idosos=:presenca_idosos, presenca_gestante=:presenca_gestante, quantos_meses_gestante=:meses_gestantes, presenca_deficiente=:presenca_deficiente, qual_deficiencia=:qual_deficiencia,agua_filtrada=:agua_filtrada, qual_agua_filtrada=:qual_agua_filtrada, parecer_tecnico_servico_social=:parecer_tecnico_servico_social,situacao=:situacao where id =:id");
         
         $sql->bindParam(":nome", $nome);
         $sql->bindParam(":sexo", $sexo);
         $sql->bindParam(":data_nascimento", $data_nascimento);
+        $sql->bindParam(":idade", $idade);
         $sql->bindParam(":estado_civil", $estado_civil);
         $sql->bindParam(":escolaridade", $escolaridade);
         $sql->bindParam(":endereco", $endereco);

@@ -116,7 +116,7 @@ $usuario = new usuarioModel();
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <div class="form-group">
            <label for="exampleInputEmail1">PESQUISA</label>
            <input type="text" class="form-control" name="pesquisa" id="pesquisa">
@@ -124,6 +124,9 @@ $usuario = new usuarioModel();
         </div>
         <div class="col-sm-2" style="margin-top: 7px;" ><br>
          <a  class="btn btn-primary" onclick="pesquisa_formulario()">Pesquisar</a>
+        </div>
+        <div class="col-sm-2" style="margin-top: 7px;" ><br>
+         <a  class="btn btn-info">LISTAR EM PDF</a>
         </div>
       </div>
     </div>

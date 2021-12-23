@@ -35,30 +35,7 @@
               </p>
             </a>
          
-          </li>  
-          <li class="nav-item">
-            <a href="cadastrar-formulario.php" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
-
-              <p>
-                CADASTRAR FORMULARIO 
-           
-              </p>
-            </a>
-         
-          </li>  
-          <li class="nav-item">
-            <a href="pesquisar_formulario.php" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
-              <p>
-                PESQUISAR FORMULARIOS 
-           
-              </p>
-            </a>
-         
-          </li>  
-          
-          
+          </li>        
 
 <?php 
 if (isset($_SESSION['nivel_acesso_id'])) {
@@ -101,44 +78,52 @@ if (isset($_SESSION['nivel_acesso_id'])) {
       </a>
 
     </li> 
+    <li class="nav-item">
+      <a href="pesquisar_formulario.php" class="nav-link">
+        <i class="nav-icon far fa-circle text-warning"></i>
+        <p>
+          PESQUISAR FORMULARIOS 
+     
+        </p>
+      </a>
+   
+    </li> 
 <?php 
+    }elseif ($_SESSION['nivel_acesso_id'] == 2) {
+?>
+        <li class="nav-item">
+          <a href="cadastrar-formulario.php" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+
+            <p>
+              CADASTRAR FORMULARIO 
+         
+            </p>
+          </a>
+        </li> 
+        <li class="nav-item">
+          <a href="pesquisar_formulario.php" class="nav-link">
+            <i class="nav-icon far fa-circle text-warning"></i>
+            <p>
+              PESQUISAR FORMULARIOS 
+         
+            </p>
+          </a>
+        </li> 
+
+<?php      
     }
   }
 ?>
-
-<?php 
-
-if (isset($_SESSION['nivel_acesso_id'])) {
-  if ($_SESSION['nivel_acesso_id']==2) {
-  
-
- ?>
-       
-          <li class="nav-item">
-            <a href="pesquisar-licitacao.php" class="nav-link">
-              <i class="nav-icon far fa-circle text-primary"></i>
-
-              <p>
-                LISTAGEM BENEFICIOS
-              </p>
-            </a>
-           
-          </li>
-
-   <?php 
-      }
-    }
-   ?>
          
 
-
-          <!-- <li class="nav-header">LABELS</li> -->
-          <li class="nav-item">
-            <a href="logoff.php" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">SAIR</p>
-            </a>
-          </li>
+  <!-- <li class="nav-header">LABELS</li> -->
+  <li class="nav-item">
+    <a href="logoff.php" class="nav-link">
+      <i class="nav-icon far fa-circle text-danger"></i>
+      <p class="text">SAIR</p>
+    </a>
+  </li>
 
 
 <!-- ######################################################################## -->

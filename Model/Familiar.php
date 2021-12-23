@@ -50,6 +50,12 @@ class familiarModel{
         return $sql->fetchAll();
     }
 
+     public function listar_familiar($conexao,$id) {
+        $sql = $conexao->prepare("SELECT count(*) as 'nome'  FROM familiar where id_beneficiario=:id");
+        $sql->execute(array('id' =>$id));
+        return $sql->fetchAll();
+    }
+
     public function pesquisar_todos_familiar($conexao,$nome) {
         $sql = $conexao->prepare("SELECT * FROM familiar where nome =:nome");
         $sql->execute(array('nome' =>$nome));

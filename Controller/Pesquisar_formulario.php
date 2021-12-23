@@ -31,10 +31,11 @@ try {
                     <th>BENEFICIOS</th>
                     <th>CADASTRADOR</th>
                     <th>UNIDADE ATENDIDO</th>
-                    <th>OPÇÃO</th>
+                    <th>OPÇÕES</th>
                     <th></th>  
                     <th></th>   
-                    <th></th>                        
+                    <th></th>
+                    <th></th>                                                
                 </tr>
             </thead>
             <tbody>";
@@ -154,8 +155,53 @@ try {
                      <input type='hidden' value='$id' name='id'>
                      <button type='submit' class='btn btn-info'>VERIFICAR</button>
                  </form>
-            </td>
-            <td id='status_beneficiario$id' name ='status_beneficiario$id'>";
+            </td>";
+
+            if (isset($_SESSION['nivel_acesso_id'])) {
+                    if ($_SESSION['nivel_acesso_id']==1 && $status_beneficiario == 'ATIVADO') {
+                        $result.="
+                         <td>     
+                            <form name='adicionar$id' action='adicionar_recebimento.php' method='POST'>
+                                <input type='hidden' value='$id' name='id'>
+                                <button type='submit' class='btn btn-success'>ADICIONAR</button>
+                            </form>
+                        </td>
+                       <td>
+                        <form name='editar$id' action='editar-formulario.php' method='POST'>
+                            <input type='hidden' value='$id' name='id'>
+                            <button type='submit' class='btn btn-warning'>EDITAR</button>
+                        </form>
+                        </td>
+                        <td>
+                        <form name='gerarPDF$id' action='teste_pdf.php' method='POST' target='_blank'>
+                            <input type='hidden' value='$id' name='id'>
+                            <button type='submit' class='btn btn-info'>GERAR PDF</button>
+                        </form>
+                        </td>";
+                        
+                    }else{
+                        $result.="
+                        <td>     
+                            <form>
+                                <button type='submit' class='btn btn-success' disabled>ADICIONAR</button>
+                            </form>
+                        </td>
+                       <td>
+                        <form>
+                            <button type='submit' class='btn btn-warning'disabled>EDITAR</button>
+                        </form>
+                        </td>
+                        <td>
+                        <form name='gerarPDF$id' action='teste_pdf.php' method='POST' target='_blank'>
+                            <input type='hidden' value='$id' name='id'>
+                            <button type='submit' class='btn btn-info'>GERAR PDF</button>
+                        </form>
+                        </td>
+                        ";
+                    }
+            
+            
+            $result.="<td id='status_beneficiario$id' name ='status_beneficiario$id'>";
                 if($status_beneficiario == 'ATIVADO'){
                     
                     $result.="<form name='desativar$id' method='GET'>
@@ -175,36 +221,7 @@ try {
                  }
                 $result.="</td>";
 
-                if (isset($_SESSION['nivel_acesso_id'])) {
-
-                    if ($_SESSION['nivel_acesso_id']==1 && $status_beneficiario == 'ATIVADO') {
-                        $result.="
-                        <td>     
-                            <form name='adicionar$id' action='adicionar_recebimento.php' method='POST'>
-                                <input type='hidden' value='$id' name='id'>
-                                <button type='submit' class='btn btn-success'>ADICIONAR</button>
-                            </form>
-                        </td>
-                       <td>
-                        <form name='editar$id' action='editar-formulario.php' method='POST'>
-                            <input type='hidden' value='$id' name='id'>
-                            <button type='submit' class='btn btn-warning'>EDITAR</button>
-                        </form>
-                        </td>";
-                        
-                    }else{
-                        $result.="
-                        <td>     
-                            <form>
-                                <button type='submit' class='btn btn-success' disabled>ADICIONAR</button>
-                            </form>
-                        </td>
-                       <td>
-                        <form>
-                            <button type='submit' class='btn btn-warning'disabled>EDITAR</button>
-                        </form>
-                        </td>";
-                    }
+                
 
             }
             $result.="</tr>";

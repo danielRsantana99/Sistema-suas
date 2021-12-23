@@ -5,10 +5,11 @@ include "../Model/Formulario.php";
 include "../Model/Familiar.php";
 
 try {
+    
     $cadastro = 0;
     $use = new formularioModel();
     $use2 = new familiarModel();
-
+    $result = '';
     $nome = $_POST['nome_beneficiario']; 
     $sexo= $_POST['sexo']; 
     $data_nascimento = $_POST['data_nascimento'];
@@ -41,15 +42,58 @@ try {
     $qual_agua_filtrada = $_POST['qual_agua_filtrada'];
     $parecer_tecnico = $_POST['parecer_tecnico'];
     $situacao = $_POST['situacao'];
-      
+    
+//-------CALCULAR IDADE-----------------------------------------------------------/
 
+    // separando yyyy, mm, ddd
+    list($ano, $mes, $dia) = explode('-', $data_nascimento);
+
+    // data atual
+    $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+    // Descobre a unix timestamp da data de nascimento do fulano
+    $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+    // cálculo
+    $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+//--------------------------------------------------------------------------------/
+//----------------FUNÇÃO PARA VALIDAR CPF--------------------//
+function  validaCPF($cpf) {
+ 
+    // Extrai somente os números
+    $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
+     
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+
+}
+$cpfvalido = validaCPF($cpf);
+//-----------------------------------------------------------//   
     $validar = $use->pesquisar_formulario_validar($conexao,$nome,$cpf,$rg);
     foreach ($validar as $key => $value) {
         $cadastro = $value['id'];
     }
 
-    if($cadastro == 0){
-        $use->cadastrar_formulario($conexao,$nome,$sexo,$data_nascimento,$estado_civil,$escolaridade_beneficiario,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo_moradia,$qual_tipo,$numero_comodos,$presenca_idoso,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiente,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico,$_SESSION['id'],$situacao,'ATIVADO');
+    if($cadastro == 0 && $cpfvalido == true){
+        $use->cadastrar_formulario($conexao,$nome,$sexo,$data_nascimento,$idade,$estado_civil,$escolaridade_beneficiario,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo_moradia,$qual_tipo,$numero_comodos,$presenca_idoso,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiente,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico,$_SESSION['id'],$situacao,'ATIVADO');
             $id_beneficiario= $conexao->lastInsertId();
 
         foreach ( $_POST['nome_familiar'] as $key => $value) {
@@ -74,12 +118,19 @@ try {
 
         $_SESSION['mensagem'] = 'cadastro realizado com sucesso!';
         $_SESSION['status'] = 1;
-        header("location:../View/formulario.php");
+        header("location:../View/pdf_GET.php?id=".$id_beneficiario);
 
     }else{
 
-        $_SESSION['mensagem'] = 'beneficiario ja cadastrado no sistema!!!';
-        $_SESSION['status'] = 0;
+        if($cpfvalido  == false){
+            $_SESSION['mensagem'] = 'cpf invalido!!!';
+            $_SESSION['status'] = 0; 
+        }else{
+            $_SESSION['mensagem'] = 'beneficiario ja cadastrado no sistema!!!';
+            $_SESSION['status'] = 0;
+        }
+
+        
         header("location:../View/cadastrar-formulario.php");
     }
 

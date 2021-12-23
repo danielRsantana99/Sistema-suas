@@ -353,6 +353,7 @@ function pesquisa_formulario(){
      xmlreq.send(null);
 }
 
+
 function pesquisa_usuario(){
 
     var result = document.getElementById('resultado');
@@ -379,6 +380,7 @@ function pesquisa_usuario(){
         };
      xmlreq.send(null);
 }
+
 
 function mudar_status_beneficiario(id){
 
@@ -420,6 +422,7 @@ function mudar_status_beneficiario(id){
            "<button type='submit' class='btn btn-danger' onclick='mudar_status_beneficiario("+id_beneficiario+");' >DESATIVAR</button>"+
             "</form>";
     }
+    pesquisa_formulario();
 }
 
 function mudar_status_usuario(id){
@@ -462,6 +465,7 @@ function mudar_status_usuario(id){
            "<button type='submit' class='btn btn-danger' onclick='mudar_status_usuario("+id_usuario+");' >DESATIVAR</button>"+
             "</form>";
     }  
+    pesquisa_usuario()
 }
 
 function mudar_status_beneficio(id){

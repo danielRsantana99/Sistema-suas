@@ -6,7 +6,7 @@ include "../Model/Familiar.php";
 require 'vendor/autoload.php';
 use Dompdf\Dompdf;
 try {
-   $id=$_POST['id'];
+   $id=$_GET['id'];
    $formulario = new formularioModel();
    $familiar = new familiarModel();
 	$renda_total  = 0;

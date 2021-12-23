@@ -39,7 +39,7 @@ $beneficios = array();
 <!-- /.card-header -->
 <!-- form start -->
 <!-- form start -->
-<form action="../Controller/Cadastrar_formulario.php" method="POST">
+<form action="../Controller/Cadastrar_formulario.php" method="POST" target="_blank">
   <div class="card-body">
     <br><h4 align="center"> IDENTIFICAÇÃO</h4><br>
     <div class="row" >
@@ -61,7 +61,7 @@ $beneficios = array();
       <div class="col-sm-4">
         <div class="form-group">
          <label for="nome">DATA DE NASCIMENTO</label>
-         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento">
+         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required="">
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@ $beneficios = array();
       <div class="col-sm-4">
         <div class="form-group">
          <label for="acesso_ssh">TELEFONE</label>
-         <input type="text" class="form-control" id="telefone" name="telefone" >
+         <input type="text" class="form-control" id="telefone" name="telefone" required="">
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@ $beneficios = array();
      <div class="col-sm-6">
         <div class="form-group">
          <label for="acesso_ssh">ENDEREÇO</label>
-         <input type="text" class="form-control" id="endereco" name="endereco">
+         <input type="text" class="form-control" id="endereco" name="endereco" required="">
         </div>
       </div>
      <div class="col-sm-6">
@@ -114,13 +114,13 @@ $beneficios = array();
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">RG</label>
-         <input type="text" class="form-control" id="rg" name="rg">
+         <input type="text" class="form-control" id="rg" name="rg" required="">
         </div>
        </div>
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">CPF</label>
-         <input type="text" class="form-control" id="cpf" name="cpf">
+         <input type="text" class="form-control" id="cpf" name="cpf" required="">
         </div>
        </div>
     </div>
@@ -167,7 +167,7 @@ $beneficios = array();
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">RENDA PROPRIA</label>
-         <input type="number" class="form-control" id="renda_propria" name="renda_propria">
+         <input type="number" class="form-control" id="renda_propria" name="renda_propria" >
         </div>
       </div>
       <div class="col-sm-3">
@@ -338,7 +338,7 @@ $beneficios = array();
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">PROFISSÃO</label>
-         <input type="text" class="form-control" id="profissao_familiar" >
+         <input type="text" class="form-control" id="profissao_familiar" name="profissao_familiar" >
         </div>
       </div>
       <div class="col-sm-3">

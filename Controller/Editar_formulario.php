@@ -43,8 +43,53 @@ try {
     $parecer_tecnico = $_POST['parecer_tecnico'];
     $situacao = $_POST['situacao'];
 
-  
-    $use->editar_formulario($conexao,$id_beneficiario,$nome,$sexo,$data_nascimento,$estado_civil,$escolaridade_beneficiario,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo_moradia,$qual_tipo,$numero_comodos,$presenca_idoso,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiente,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico,$situacao);
+//-------CALCULAR IDADE-----------------------------------------------------------/
+
+    // separando yyyy, mm, ddd
+    list($ano, $mes, $dia) = explode('-', $data_nascimento);
+
+    // data atual
+    $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+    // Descobre a unix timestamp da data de nascimento do fulano
+    $nascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
+
+    // cálculo
+    $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+//--------------------------------------------------------------------------------/
+
+    //----------------FUNÇÃO PARA VALIDAR CPF--------------------//
+    function  validaCPF($cpf) {
+     
+        // Extrai somente os números
+        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
+         
+        // Verifica se foi informado todos os digitos corretamente
+        if (strlen($cpf) != 11) {
+            return false;
+        }
+
+        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
+        }
+
+        // Faz o calculo para validar o CPF
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+    $cpfvalido = validaCPF($cpf);
+
+    if($cpfvalido == true){
+        $use->editar_formulario($conexao,$id_beneficiario,$nome,$sexo,$data_nascimento,$idade,$estado_civil,$escolaridade_beneficiario,$endereco,$ponto_referencia,$telefone,$rg,$cpf,$titulo_eleitoral,$zona,$secao,$nis,$empregado,$renda_propria,$bolsa_familia,$quanto_bolsa_familia,$moradia,$quanto_moradia,$tipo_moradia,$qual_tipo,$numero_comodos,$presenca_idoso,$presenca_gestante,$meses_gestantes,$presenca_deficiente,$qual_deficiente,$agua_filtrada,$qual_agua_filtrada,$parecer_tecnico,$situacao);
 
     $use2->apagar_familiar($conexao,$id_beneficiario);
 
@@ -75,6 +120,12 @@ try {
     $_SESSION['status'] = 1;
 
      header("location:../View/pesquisar_formulario.php");
+    }else{
+        $_SESSION['mensagem'] = 'cpf invalido !!!'; 
+        $_SESSION['status'] = 0;
+    }
+  
+    
     
 } catch (Exception $exc) {
     $_SESSION['mensagem'] = 'beneficiario não foi editado com sucesso!!!'; 
