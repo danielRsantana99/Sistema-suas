@@ -91,13 +91,6 @@ class beneficiosModel{
         return $sql->fetchAll();
     }
 
-    public function verificar_recebimento($conexao,$id_beneficiario,$data) {
-        $sql = $conexao->prepare("SELECT * FROM recebimento where id_beneficiario=:id_beneficiario and data_recebimento=:data");
-        $sql->execute(array('id_beneficiario' =>$id_beneficiario,
-          'data' =>$data
-      ));
-        return $sql->fetchAll();
-    }
 
     public function cadastrar_recebimento($conexao,$id_beneficiario,$id_beneficio,$entregue,$data) {
         $sql = $conexao->prepare("INSERT INTO recebimento (id_beneficiario, id_beneficio,confirmacao_recebimento, data_recebimento)VALUES(:id_beneficiario,:id_beneficio,:entregue,:data)");
@@ -106,6 +99,16 @@ class beneficiosModel{
           'id_beneficiario' =>$id_beneficiario,
           'id_beneficio'=>$id_beneficio,
           'entregue'=>$entregue,
+          'data'=>$data
+        ));
+    }
+
+    public function verificar_recebimento($conexao,$id_beneficiario,$id_beneficio,$data){
+      $sql = $conexao->prepare("SELECT id FROM recebimento WHERE id_beneficiario =:id_beneficiario AND id_beneficio =:id_beneficio AND data_recebimento =:data");
+      
+      $sql->execute(array(
+          'id_beneficiario' =>$id_beneficiario,
+          'id_beneficio'=>$id_beneficio,
           'data'=>$data
         ));
     }
