@@ -39,7 +39,7 @@ $beneficios = array();
 <!-- /.card-header -->
 <!-- form start -->
 <!-- form start -->
-<form action="../Controller/Cadastrar_formulario.php" method="POST" target="_blank">
+<form action="../Controller/Cadastrar_formulario.php" method="POST">
   <div class="card-body">
     <br><h4 align="center"> IDENTIFICAÇÃO</h4><br>
     <div class="row" >

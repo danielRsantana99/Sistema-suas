@@ -38,9 +38,6 @@ $res = $formulario->pesquisar_formulario2($conexao,$id);
 <div class="card card-primary">
 <div class="card-header">
 </div>
-<!-- /.card-header -->
-<!-- form start -->
-<!-- form start -->
   <form method="POST" action="adicionar_recebimento.php">   
     <input type="hidden" class="form-control" name="id" id="id" value='<?php echo $id; ?>'>              
      <div class="card-body" style="margin-left: 20px;">
@@ -53,13 +50,13 @@ $res = $formulario->pesquisar_formulario2($conexao,$id);
           <div class="col-sm-2">
             <div class="form-group">
              <label for="exampleInputEmail1">DATA INICIAL</label>
-             <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
+             <input type="date" class="form-control" name="data_inicial" id="data_inicial">
             </div>
           </div>
           <div class="col-sm-2">
             <div class="form-group">
              <label for="exampleInputEmail1">DATA FINAL</label>
-             <input type="date" class="form-control" name="data_final" id="data_final" required>
+             <input type="date" class="form-control" name="data_final" id="data_final">
             </div>
           </div>
           <div class="col-sm-3">
@@ -101,27 +98,18 @@ $res = $formulario->pesquisar_formulario2($conexao,$id);
           
         </div>
       </div>
-    </div>
   </form>
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">     
-            <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap" id="resultado">
-              
-            </table>
-          </div>
-            <!-- /.card-body -->
-        </div>
-          <!-- /.card -->
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table" id="resultado">
+          
+        </table>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
-    
+  
 
 
 

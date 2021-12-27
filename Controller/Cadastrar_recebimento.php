@@ -8,33 +8,46 @@ try {
     $use = new beneficiosModel();
     $id_beneficiario = $_POST['id_beneficiario']; 
     $entregue = 'SIM'; 
+    $entregas= 0;
+    
+        function validaRecebimento($conexao,$use,$id_beneficiario,$id_beneficio,$data) {
+        $validar = 0;
+        $res = $use->verificar_recebimento($conexao,$id_beneficiario,$id_beneficio,$data);
+            foreach ($res as $key => $value) {
+                $validar = $value['nome'];
 
-    function  validaRecebimento($conexao,$id_beneficiario,$id_beneficio,$data) {
-    $use2 = new beneficiosModel();
-    $res = $use2->verificar_recebimento($conexao,$id_beneficiario,$id_beneficio,$data);
-    foreach ($res as $key => $value) {
-        $validar = $value['id'];
-    }
-    if ($validar < 1) {
-         return true;
-    }else{
-         return false;
-    }
-   
+        }
+        return $validar;
 
-    }
-    foreach ( $_POST['beneficios'] as $key => $value){
+        }
+
+    foreach ($_POST['beneficios'] as $key => $value){
         $id_beneficio = $_POST['beneficios'][$key]; 
         $data = $_POST['data_recebimento'][$key];
-        $validacao = validaRecebimento($conexao,$id_beneficiario,$id_beneficio,$data);
-        if($validacao == true){
-            //$use->cadastrar_recebimento($conexao,$id_beneficiario,$id_beneficio,$entregue,$data); 
-            $_SESSION['status'] = 1;
+        $validacao = validaRecebimento($conexao,$use,$id_beneficiario,$id_beneficio,$data);
+
+        if($validacao == 0){      
+            $use->cadastrar_recebimento($conexao,$id_beneficiario,$id_beneficio,$entregue,$data); 
         }else{
-            $_SESSION['status'] = 0;
+            $entregas++;
+            $arrayDuplicados[] = $data; 
         }
+        
     }
 
+    if($entregas > 0){
+        $_SESSION['mensagem'] = "foi encontrado $entregas cadastrados ja presente no sistema. as duplicadas são:";
+            foreach ($arrayDuplicados as $key => $value) {
+
+                $dataencontrada = $value;
+                $_SESSION['mensagem'] .="$dataencontrada,";
+            }
+            
+        $_SESSION['mensagem'].=".Eles não foram registrados novamente";
+        $_SESSION['status'] = 0;  
+    }else{
+        $_SESSION['status'] = 1;    
+    }
     
     header("location:../View/pesquisar_formulario.php");
     

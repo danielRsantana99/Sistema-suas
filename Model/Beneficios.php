@@ -104,13 +104,14 @@ class beneficiosModel{
     }
 
     public function verificar_recebimento($conexao,$id_beneficiario,$id_beneficio,$data){
-      $sql = $conexao->prepare("SELECT id FROM recebimento WHERE id_beneficiario =:id_beneficiario AND id_beneficio =:id_beneficio AND data_recebimento =:data");
+      $sql = $conexao->prepare("SELECT count(*) as 'nome' FROM recebimento WHERE id_beneficiario =:id_beneficiario AND id_beneficio =:id_beneficio AND data_recebimento =:data");
       
       $sql->execute(array(
           'id_beneficiario' =>$id_beneficiario,
           'id_beneficio'=>$id_beneficio,
           'data'=>$data
         ));
+      return $sql->fetchAll();
     }
 
 

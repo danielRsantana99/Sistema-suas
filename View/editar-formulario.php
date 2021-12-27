@@ -562,7 +562,7 @@ include_once "../Model/Beneficios.php";
                 }
                 echo"<tr id='div_$id_beneficio'>
                         <td><input type='hidden' class='form-control' id='beneficios' name='beneficios[] 'value='$id_beneficio' >$nome_beneficio</td>
-                        <td><input type='hidden' class='form-control' id='tempo_beneficio' name='tempo_beneficio[]' 'value='$tempo_beneficio' >$tempo_beneficio</td>
+                        <td><input type='hidden' class='form-control' id='tempo_beneficio' name='tempo_beneficio[]' 'value='$tempo_beneficio' >$tempo_beneficio Meses</td>
                         <td><a class='btn btn-danger' onclick=;remover_beneficio('div_$id_beneficio',$id_beneficio);remover_beneficio2($id,$id_beneficio); >Apagar</a></td>
                       </td>
                       </tr>

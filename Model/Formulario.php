@@ -186,7 +186,7 @@ class formularioModel{
     }
 
     public function pesquisar_recebimento_data($conexao,$id_beneficiario,$data_inicial,$data_final,$beneficio){
-      $sql = $conexao->prepare("SELECT beneficio.nome as 'nome_beneficio', beneficiario.nome as 'nome_beneficiario', recebimento.data_recebimento,recebimento.confirmacao_recebimento as 'entregue' FROM recebimento,beneficiario,beneficio, relacao_beneficio_beneficiario WHERE relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_beneficio_beneficiario.id_beneficio = beneficio.id AND recebimento.id_beneficiario = beneficiario.id AND recebimento.id_beneficio = beneficio.id AND beneficiario.id =:id_beneficiario AND beneficio.id = :beneficio AND recebimento.data_recebimento BETWEEN :data_inicial and :data_final");
+      $sql = $conexao->prepare("SELECT beneficio.nome as 'nome_beneficio', beneficiario.nome as 'nome_beneficiario', recebimento.data_recebimento,recebimento.confirmacao_recebimento as 'entregue' FROM recebimento,beneficiario,beneficio, relacao_beneficio_beneficiario WHERE relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_beneficio_beneficiario.id_beneficio = beneficio.id AND recebimento.id_beneficiario = beneficiario.id AND recebimento.id_beneficio = beneficio.id AND beneficiario.id =:id_beneficiario AND beneficio.id = :beneficio AND recebimento.data_recebimento BETWEEN :data_inicial AND :data_final");
       $sql->execute(array('id_beneficiario' =>$id_beneficiario,
         'beneficio'=>$beneficio,
         'data_inicial'=>$data_inicial,
@@ -197,7 +197,7 @@ class formularioModel{
 
 
     public function pesquisar_formulario_detalhes($conexao,$pesquisa,$unidade,$status,$situacao,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -215,7 +215,7 @@ class formularioModel{
     }
 
     public function p_f_d_beneficio($conexao,$pesquisa,$unidade,$status,$situacao,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -232,7 +232,7 @@ class formularioModel{
     }
 
     public function p_f_d_situacao($conexao,$pesquisa,$unidade,$status,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -249,7 +249,7 @@ class formularioModel{
     }
 
     public function p_f_d_situacao_beneficio($conexao,$pesquisa,$unidade,$status,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -265,7 +265,7 @@ class formularioModel{
     }
 
     public function p_f_d_status($conexao,$pesquisa,$unidade,$situacao,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -282,7 +282,7 @@ class formularioModel{
     }
 
     public function p_f_d_status_situacao($conexao,$pesquisa,$unidade,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -298,7 +298,7 @@ class formularioModel{
     }
 
     public function p_f_d_status_beneficio($conexao,$pesquisa,$unidade,$situacao,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND unidade.id = :unidade AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'unidade'=>$unidade,
@@ -313,7 +313,7 @@ class formularioModel{
         return $sql->fetchAll();
     }
     public function p_f_d_unidade($conexao,$pesquisa,$status,$situacao,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'status'=>$status,
@@ -330,7 +330,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_situacao($conexao,$pesquisa,$status,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'status'=>$status,
@@ -346,7 +346,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_status($conexao,$pesquisa,$situacao,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'situacao'=>$situacao,
@@ -363,7 +363,7 @@ class formularioModel{
 
 
     public function p_f_d_unidade_beneficio($conexao,$pesquisa,$status,$situacao,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'status'=>$status,
@@ -379,7 +379,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_status_beneficio($conexao,$pesquisa,$situacao,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.situacao = :situacao AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'situacao'=>$situacao,
@@ -394,7 +394,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_situacao_beneficio($conexao,$pesquisa,$status,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.status = :status AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'status'=>$status,
@@ -409,7 +409,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_situacao_status($conexao,$pesquisa,$beneficio,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND relacao_beneficio_beneficiario.id_beneficio = :beneficio AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'data_inicial'=>$data_inicial,
@@ -424,7 +424,7 @@ class formularioModel{
     }
 
     public function p_f_d_unidade_situacao_status_beneficio($conexao,$pesquisa,$data_inicial,$data_final){
-        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
+        $sql = $conexao->prepare("SELECT beneficiario.id,beneficiario.status,beneficiario.telefone,beneficiario.endereco,beneficiario.data,beneficiario.renda_propria, beneficiario.nome,beneficiario.cpf,usuario.nome AS 'contratador', unidade.nome AS 'unidade' FROM beneficiario,relacao_usuario_unidade,unidade,relacao_beneficio_beneficiario,usuario WHERE beneficiario.id_contratador = usuario.id AND relacao_beneficio_beneficiario.id_beneficiario =beneficiario.id AND relacao_usuario_unidade.id_unidade = unidade.id AND relacao_usuario_unidade.id_usuario = usuario.id AND beneficiario.nome like :pesquisa OR beneficiario.cpf like :pesquisa1 AND beneficiario.data BETWEEN :data_inicial AND :data_final ORDER BY beneficiario.id ASC");
         $sql->execute(
             array(
                 'data_inicial'=>$data_inicial,

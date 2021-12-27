@@ -24,7 +24,6 @@ try {
     $result="
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>BENEFICIÁRIO</th>
                     <th>CPF</th>
                     <th>FAMILIARES</th>
@@ -113,7 +112,6 @@ try {
         if($id != $idpassado){
             $result.="
             <tr> 
-            <td>$id</td>
                 <td>
 
                 <h5>$nome</h5>
@@ -158,7 +156,7 @@ try {
             </td>";
 
             if (isset($_SESSION['nivel_acesso_id'])) {
-                    if ($_SESSION['nivel_acesso_id']==1 && $status_beneficiario == 'ATIVADO') {
+                    if ($_SESSION['nivel_acesso_id']==2 && $status_beneficiario == 'ATIVADO') {
                         $result.="
                          <td>     
                             <form name='adicionar$id' action='adicionar_recebimento.php' method='POST'>
@@ -174,8 +172,7 @@ try {
                         </td>
                         <td>
                         <form name='gerarPDF$id' action='teste_pdf.php' method='POST' target='_blank'>
-                            <input type='hidden' value='$id' name='id'>
-                            <button type='submit' class='btn btn-info'>GERAR PDF</button>
+                            <button type='submit' class='btn btn-info' onclick='criar_pdf_formulario($id);'>GERAR PDF</button>
                         </form>
                         </td>";
                         
@@ -190,14 +187,7 @@ try {
                         <form>
                             <button type='submit' class='btn btn-warning'disabled>EDITAR</button>
                         </form>
-                        </td>
-                        <td>
-                        <form name='gerarPDF$id' action='teste_pdf.php' method='POST' target='_blank'>
-                            <input type='hidden' value='$id' name='id'>
-                            <button type='submit' class='btn btn-info'>GERAR PDF</button>
-                        </form>
-                        </td>
-                        ";
+                        </td>";
                     }
             
             

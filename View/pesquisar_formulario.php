@@ -10,7 +10,6 @@ include_once "../Model/Usuario.php";
 
 $beneficio = new beneficiosModel();
 $usuario = new usuarioModel();
-
 ?>
   <!-- Main Sidebar Container -->
 <div class="content-wrapper">
@@ -126,7 +125,7 @@ $usuario = new usuarioModel();
          <a  class="btn btn-primary" onclick="pesquisa_formulario()">Pesquisar</a>
         </div>
         <div class="col-sm-2" style="margin-top: 7px;" ><br>
-         <a  class="btn btn-info">LISTAR EM PDF</a>
+         <a  class="btn btn-info" href="pdf_lista.php" onclick="criar_pdf_lista();" target="_blank">LISTAR EM PDF</a>
         </div>
       </div>
     </div>

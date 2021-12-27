@@ -26,6 +26,16 @@ if (isset($_SESSION['mensagem'])) {
         })
       </script>"; 
       
+    }else if($_SESSION['status']==2) {
+      echo "<script>      
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Ação Concluída',
+          confirmButtonText: 'Gerar PDF'
+        }).then(()=>location.replace('teste_pdf.php'));
+      </script>"; 
+      
     }
 
     unset($_SESSION['status']);

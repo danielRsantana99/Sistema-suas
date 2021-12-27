@@ -6,10 +6,10 @@ include "../Model/Familiar.php";
 require 'vendor/autoload.php';
 use Dompdf\Dompdf;
 try {
-   $id=$_POST['id'];
+   $id=$_SESSION['idFormulario'];
    $formulario = new formularioModel();
    $familiar = new familiarModel();
-	$renda_total  = 0;
+   $renda_total  = 0;
    $resContarMembros=$familiar->listar_familiar($conexao,$id);
    foreach ($resContarMembros as $key => $value) {
    	 $contador_membros = $value['nome'];
@@ -1215,7 +1215,7 @@ $dompdf->render();
 // Output the generated PDF to Browser
 // $dompdf->stream();
 $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
-
+$_SESSION['idFormulario'] = '';
 exit(0);
     
 } catch (Exception $exc) {

@@ -57,36 +57,36 @@ try {
     $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
 //--------------------------------------------------------------------------------/
 //----------------FUNÇÃO PARA VALIDAR CPF--------------------//
-function  validaCPF($cpf) {
- 
-    // Extrai somente os números
-    $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
+    function  validaCPF($cpf) {
      
-    // Verifica se foi informado todos os digitos corretamente
-    if (strlen($cpf) != 11) {
-        return false;
-    }
-
-    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
-    if (preg_match('/(\d)\1{10}/', $cpf)) {
-        return false;
-    }
-
-    // Faz o calculo para validar o CPF
-    for ($t = 9; $t < 11; $t++) {
-        for ($d = 0, $c = 0; $c < $t; $c++) {
-            $d += $cpf[$c] * (($t + 1) - $c);
-        }
-        $d = ((10 * $d) % 11) % 10;
-        if ($cpf[$c] != $d) {
+        // Extrai somente os números
+        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
+         
+        // Verifica se foi informado todos os digitos corretamente
+        if (strlen($cpf) != 11) {
             return false;
         }
-    }
-    return true;
 
-}
-$cpfvalido = validaCPF($cpf);
-//-----------------------------------------------------------//   
+        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
+        }
+
+        // Faz o calculo para validar o CPF
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                return false;
+            }
+        }
+        return true;
+
+    } 
+//-----------------------------------------------------------//     
+    $cpfvalido = validaCPF($cpf); 
     $validar = $use->pesquisar_formulario_validar($conexao,$nome,$cpf,$rg);
     foreach ($validar as $key => $value) {
         $cadastro = $value['id'];
@@ -116,11 +116,12 @@ $cpfvalido = validaCPF($cpf);
                
         }   
 
-        $_SESSION['mensagem'] = 'cadastro realizado com sucesso!';
-        $_SESSION['status'] = 1;
-        header("location:../View/pdf_GET.php?id=".$id_beneficiario);
+        $_SESSION['idFormulario'] = 11;
+        $_SESSION['status'] = 2;
+        
 
-    }else{
+        header("location:../View/cadastrar-formulario.php");
+        }else{
 
         if($cpfvalido  == false){
             $_SESSION['mensagem'] = 'cpf invalido!!!';
@@ -129,8 +130,6 @@ $cpfvalido = validaCPF($cpf);
             $_SESSION['mensagem'] = 'beneficiario ja cadastrado no sistema!!!';
             $_SESSION['status'] = 0;
         }
-
-        
         header("location:../View/cadastrar-formulario.php");
     }
 

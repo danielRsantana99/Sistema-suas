@@ -31,9 +31,9 @@ try {
     foreach ($res as $key => $value) {
         $nome_beneficiario = $value['nome_beneficiario'];
         $nome_beneficio = $value['nome_beneficio'];
-        $data = $value['data_recebimento'];
+        $data = new DateTime($value['data_recebimento']);
         $entregue = $value['entregue'];
-       
+        $data_registro = $data->format('d/m/Y');
         
 
 $result.="
@@ -52,7 +52,7 @@ $result.="
         
     </td>
     <td>
-        <h5>$data</h5>
+        <h5>$data_registro</h5>
     </td>
     <td>
         <h5>$entregue</h5>

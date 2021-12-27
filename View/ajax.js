@@ -209,21 +209,23 @@ function adicionar_beneficio_recebimento(){
     var data =document.getElementById('data_recebimento').value;
     
     var beneficios=beneficios_objeto.value;
-   
-    
     var option = beneficios_objeto.children[beneficios_objeto.selectedIndex];
     var nome_beneficios = option.textContent;
 
     var item = "div_"+beneficios;
     tabela_beneficios.innerHTML+=""+
             "<tr id='"+item+"'>"+
-              "<td><input type='hidden' class='form-control' id='beneficios' name='beneficios[] 'value='"+beneficios+"' > "+nome_beneficios+"</td>"+
+              "<td><input type='hidden' class='form-control' id='beneficios' name='beneficios[] 'value='"+beneficios+"' > "+beneficios + nome_beneficios+"</td>"+
               "<td><input type='hidden' class='form-control' id='data_recebimento' name='data_recebimento[] 'value='"+data+"' > "+data+"</td>"+
-              "<td><a class='btn btn-danger' onclick=remover_beneficio('"+item+"'); >Cancelar</a></td>"+
+              "<td><a class='btn btn-danger' onclick=remover_beneficio_recebimento('"+item+"'); >Cancelar</a></td>"+
             "</tr>";
 
 }
+function remover_beneficio_recebimento(itemid){
+  var element = document.getElementById(itemid); // will return element
+  element.parentNode.removeChild(element); // will remove the element from DOM
 
+}
 function remover_beneficio(itemid,id){
   var element = document.getElementById(itemid); // will return element
   element.parentNode.removeChild(element); // will remove the element from DOM
@@ -266,8 +268,9 @@ function apagar_temporario(){
          }
         };
      xmlreq.send(null);
+}
 
-     
+function criar_pdf_lista(){
 
 }
 
@@ -353,7 +356,55 @@ function pesquisa_formulario(){
      xmlreq.send(null);
 }
 
+function criar_pdf_lista(){
 
+    var pesquisa = document.getElementById('pesquisa').value;
+    var unidade = document.getElementById('unidade').value;
+    var beneficio = document.getElementById('beneficio').value;
+    var data_inicial = document.getElementById('data_inicial').value;
+    var data_final = document.getElementById('data_final').value;
+    var status = document.getElementById('status').value;
+    var situacao = document.getElementById('situacao').value;
+            
+        var xmlreq = CriaRequest();
+        xmlreq.open("GET", "../Controller/pdf_lista.php?pesquisa="+pesquisa+"&unidade="+unidade+"&status="+status+"&data_inicial="+data_inicial+"&data_final="+data_final+"&situacao="+situacao+"&beneficio="+beneficio, true);
+
+        xmlreq.onreadystatechange = function(){
+      
+         if (xmlreq.readyState == 4) {
+             if (xmlreq.status == 200) {
+                //alert('foi');
+
+             }else{
+                   alert('Erro desconhecido, verifique sua conexão com a internet');
+
+                //result.innerHTML ="Erro ao receber mensagens";                 
+             }
+         }
+        };
+     xmlreq.send(null);
+}
+
+function criar_pdf_formulario(id){
+ 
+        var xmlreq = CriaRequest();
+        xmlreq.open("GET", "../Controller/pdf_formulario.php?id="+id, true);
+
+        xmlreq.onreadystatechange = function(){
+      
+         if (xmlreq.readyState == 4) {
+             if (xmlreq.status == 200) {
+                //alert('foi');
+
+             }else{
+                   alert('Erro desconhecido, verifique sua conexão com a internet');
+
+                //result.innerHTML ="Erro ao receber mensagens";                 
+             }
+         }
+        };
+     xmlreq.send(null);
+}
 function pesquisa_usuario(){
 
     var result = document.getElementById('resultado');

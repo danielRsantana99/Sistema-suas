@@ -47,13 +47,13 @@ $beneficio = new beneficiosModel();
           <div class="col-sm-4">
             <div class="form-group">
              <label for="nome">DATA DE RECEBIMENTO</label>
-             <input type="date" class="form-control" id="data_recebimento" name="data_recebimento[]">
+             <input type="date" class="form-control" id="data_recebimento" name="data_recebimento">
             </div>
           </div>
           <div class="col-sm-4">
             <div class="form-group">
               <label for="exampleInputEmail1">BENEFÍCIO</label>
-              <select class="form-control"  id="beneficios" name="beneficios[]" >
+              <select class="form-control"  id="beneficios" name="beneficios" >
               <?php
                 $res = $formulario->pesquisar_relacao_beneficio_beneficiario($conexao,$id);
                 foreach ($res as $key => $value) {
@@ -86,8 +86,7 @@ $beneficio = new beneficiosModel();
       </div>
     </form>
      <div class="row">
-      <div class="col-sm-12">
-          <table class="table">
+        <table class="table">
             <thead>
               <tr>
                 <th scope="col">BENEFÍCIO</th>
@@ -95,10 +94,12 @@ $beneficio = new beneficiosModel();
               </tr>
             </thead>
             <tbody id="tabela_beneficios">
-
+              <tr>
+                <td> </td>
+                <td> </td>
+              </tr>
             </tbody>
         </table>
-      </div>
     </div>
 
 </div>
