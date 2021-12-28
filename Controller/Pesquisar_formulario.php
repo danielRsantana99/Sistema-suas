@@ -67,11 +67,11 @@ try {
 
             $res=$formulario->p_f_s_b_u_st($conexao,$pesquisa,$situacao,$data_inicial,$data_final);
         }else{
-            
+
             $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade1,$status,$situacao,$data_inicial,$data_final);
         }
 
-        $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade,$status,$situacao,$data_inicial,$data_final);
+        $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade1,$status,$situacao,$data_inicial,$data_final);
     }else if($unidade1 == 'todos' && $situacao != 'todos' && $status != 'todos' && $beneficio != 'todos')
     {
         $res=$formulario->p_f_d_unidade($conexao,$pesquisa,$status,$situacao,$beneficio,$data_inicial,$data_final);
