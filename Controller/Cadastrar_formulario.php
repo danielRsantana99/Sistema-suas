@@ -86,7 +86,7 @@ try {
 
     } 
 //-----------------------------------------------------------//     
-   /* $cpfvalido = validaCPF($cpf); 
+    $cpfvalido = validaCPF($cpf); 
     $validar = $use->pesquisar_formulario_validar($conexao,$nome,$cpf,$rg);
     foreach ($validar as $key => $value) {
         $cadastro = $value['id'];
@@ -115,13 +115,13 @@ try {
             $use->cadastrar_relacao_beneficio_beneficiario($conexao,$id_beneficiario,$id_beneficios,$tempo_beneficio);
                
         }   
-*/
-        //$_SESSION['idFormulario'] = $id_beneficiario;
+
+        $_SESSION['idFormulario'] = $id_beneficiario;
         $_SESSION['status'] = 2;
         
 
         header("location:../View/cadastrar-formulario.php");
-/*        }else{
+        }else{
 
         if($cpfvalido  == false){
             $_SESSION['mensagem'] = 'cpf invalido!!!';
@@ -132,7 +132,7 @@ try {
         }
         header("location:../View/cadastrar-formulario.php");
     }
-*/
+
 
     
 
