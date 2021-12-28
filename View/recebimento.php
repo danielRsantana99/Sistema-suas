@@ -86,7 +86,7 @@ $res = $formulario->pesquisar_formulario2($conexao,$id);
           <?php 
             if($status == 'ATIVADO'){
               echo"<div class='col-sm-3' style='margin-top: 7px;'><br>
-                <button type='submit' class='btn btn-success'>ADICIONAR RECEBIMENTO</button>
+                <button type='submit' class='btn btn-success' onclick='id_recebimento($id)'>ADICIONAR RECEBIMENTO</button>
               </div>";
             }else{
               echo"<div class='col-sm-3' style='margin-top: 7px;'><br>

@@ -32,8 +32,16 @@ if (isset($_SESSION['mensagem'])) {
           position: 'center',
           icon: 'success',
           title: 'Ação Concluída',
-          confirmButtonText: 'Gerar PDF'
-        }).then(()=>location.replace('teste_pdf.php'));
+          confirmButtonText: 'Gerar PDF',
+          showCancelButton: true,
+          cancelButtonText: 'Voltar'
+        }).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      location.replace('teste_pdf.php')
+    )
+  }
+})
       </script>"; 
       
     }

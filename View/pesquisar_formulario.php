@@ -88,6 +88,7 @@ $usuario = new usuarioModel();
            <label for="exampleInputEmail1">BENEFICIO DO BENEFICIADO</label>
            <select class="form-control"  id="beneficio" name="beneficio">
             <option value="todos">Todos</option>-->
+            
             <?php
             $res = $beneficio->pesquisar_todos_beneficios($conexao);
             foreach ($res as $key => $value) {
@@ -98,6 +99,7 @@ $usuario = new usuarioModel();
               ";
             }
             ?>
+            <option value="nenhum">nenhum</option>
            </select> 
           </div>
         </div>

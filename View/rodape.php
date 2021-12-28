@@ -15,7 +15,8 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.1/dist/sweetalert2.all.min.js"></script>
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
 <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>

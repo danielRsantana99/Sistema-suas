@@ -91,7 +91,7 @@ $beneficios = array();
       <div class="col-sm-4">
         <div class="form-group">
          <label for="acesso_ssh">TELEFONE</label>
-         <input type="text" class="form-control" id="telefone" name="telefone" required="">
+         <input type="text" class="form-control" id="telefone" name="telefone" onkeypress="$(this).mask('(00) 0000-00009')" required="">
         </div>
       </div>
     </div>
@@ -114,13 +114,13 @@ $beneficios = array();
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">RG</label>
-         <input type="text" class="form-control" id="rg" name="rg" required="">
+         <input type="text" class="form-control" id="rg" name="rg" onkeypress="$(this).mask('00.000.000-00');" required="">
         </div>
        </div>
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">CPF</label>
-         <input type="text" class="form-control" id="cpf" name="cpf" required="">
+         <input type="text" class="form-control" id="cpf" name="cpf"  onkeypress="$(this).mask('000.000.000-00');" required="">
         </div>
        </div>
     </div>
@@ -128,25 +128,25 @@ $beneficios = array();
        <div class="col-sm-5">
         <div class="form-group">
          <label for="nome">TITULO ELEITORAL</label>
-         <input type="text" class="form-control" id="titulo_eleitoral" name="titulo_eleitoral">
+         <input type="text" class="form-control" id="titulo_eleitoral" name="titulo_eleitoral" onkeypress="$(this).mask('0000 0000 0000');">
         </div>
        </div>
        <div class="col-sm-2">
         <div class="form-group">
          <label for="nome">ZONA</label>
-         <input type="text" class="form-control" id="zona" name="zona">
+         <input type="text" class="form-control" id="zona" name="zona" onkeypress="$(this).mask('000');">
         </div>
        </div>
        <div class="col-sm-2">
         <div class="form-group">
          <label for="nome">SEÇÃO</label>
-         <input type="text" class="form-control" id="secao" name="secao">
+         <input type="text" class="form-control" id="secao" name="secao" onkeypress="$(this).mask('0000');">
         </div>
        </div>
        <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">NIS</label>
-         <input type="text" class="form-control" id="nis" name="nis">
+         <input type="text" class="form-control" id="nis" name="nis" onkeypress="$(this).mask('000.00000.00-0');">
         </div>
        </div>
     </div>

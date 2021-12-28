@@ -114,6 +114,14 @@ class beneficiosModel{
       return $sql->fetchAll();
     }
 
+    public function listar_recebimento($conexao,$id_beneficiario){
+      $sql = $conexao->prepare("SELECT *  FROM recebimento WHERE id_beneficiario =:id_beneficiario");
+      
+      $sql->execute(array(
+          'id_beneficiario' =>$id_beneficiario));
+      return $sql->fetchAll();
+    }
+
 
 }
 

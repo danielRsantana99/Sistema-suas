@@ -38,8 +38,9 @@ try {
                 </tr>
             </thead>
             <tbody>";
-
-    if($unidade1 == 'todos' && $situacao != 'todos' && $status != 'todos' && $beneficio != 'todos')
+    if($beneficio == 'nenhum'){
+        $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade,$status,$situacao,$data_inicial,$data_final);
+    }else if($unidade1 == 'todos' && $situacao != 'todos' && $status != 'todos' && $beneficio != 'todos')
     {
         $res=$formulario->p_f_d_unidade($conexao,$pesquisa,$status,$situacao,$beneficio,$data_inicial,$data_final);
     }
@@ -160,8 +161,7 @@ try {
                         $result.="
                          <td>     
                             <form name='adicionar$id' action='adicionar_recebimento.php' method='POST'>
-                                <input type='hidden' value='$id' name='id'>
-                                <button type='submit' class='btn btn-success'>ADICIONAR</button>
+                                <button type='submit' class='btn btn-success' onclick='id_recebimento($id);'>ADICIONAR</button>
                             </form>
                         </td>
                        <td>

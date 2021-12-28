@@ -203,24 +203,6 @@ function revalidar_beneficio(){
    
 }
 
-function adicionar_beneficio_recebimento(){
-    var tabela_beneficios=document.getElementById('tabela_beneficios');
-    var beneficios_objeto=document.getElementById('beneficios');
-    var data =document.getElementById('data_recebimento').value;
-    
-    var beneficios=beneficios_objeto.value;
-    var option = beneficios_objeto.children[beneficios_objeto.selectedIndex];
-    var nome_beneficios = option.textContent;
-
-    var item = "div_"+beneficios;
-    tabela_beneficios.innerHTML+=""+
-            "<tr id='"+item+"'>"+
-              "<td><input type='hidden' class='form-control' id='beneficios' name='beneficios[] 'value='"+beneficios+"' > "+beneficios + nome_beneficios+"</td>"+
-              "<td><input type='hidden' class='form-control' id='data_recebimento' name='data_recebimento[] 'value='"+data+"' > "+data+"</td>"+
-              "<td><a class='btn btn-danger' onclick=remover_beneficio_recebimento('"+item+"'); >Cancelar</a></td>"+
-            "</tr>";
-
-}
 function remover_beneficio_recebimento(itemid){
   var element = document.getElementById(itemid); // will return element
   element.parentNode.removeChild(element); // will remove the element from DOM
@@ -270,9 +252,6 @@ function apagar_temporario(){
      xmlreq.send(null);
 }
 
-function criar_pdf_lista(){
-
-}
 
 function remover_familiar(itemid){
   var element = document.getElementById(itemid); // will return element
@@ -405,6 +384,29 @@ function criar_pdf_formulario(id){
         };
      xmlreq.send(null);
 }
+
+
+function id_recebimento(id){
+ 
+        var xmlreq = CriaRequest();
+        xmlreq.open("GET", "../Controller/id_recebimento.php?id="+id, true);
+
+        xmlreq.onreadystatechange = function(){
+      
+         if (xmlreq.readyState == 4) {
+             if (xmlreq.status == 200) {
+                //alert('foi');
+
+             }else{
+                   alert('Erro desconhecido, verifique sua conexão com a internet');
+
+                //result.innerHTML ="Erro ao receber mensagens";                 
+             }
+         }
+        };
+     xmlreq.send(null);
+}
+
 function pesquisa_usuario(){
 
     var result = document.getElementById('resultado');

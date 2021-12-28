@@ -184,7 +184,7 @@ include_once "../Model/Beneficios.php";
       <div class="col-sm-4">
         <div class="form-group">
          <label for="acesso_ssh">TELEFONE</label>
-         <input type="text" class="form-control" id="telefone" name="telefone" value='<?php echo $telefone; ?>'>
+         <input type="text" class="form-control" id="telefone" name="telefone" value='<?php echo $telefone; ?>' onkeypress="$(this).mask('(00) 0000-00009')">
         </div>
       </div>
     </div>
@@ -207,13 +207,13 @@ include_once "../Model/Beneficios.php";
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">RG</label>
-         <input type="text" class="form-control" id="rg" name="rg" value='<?php echo $rg; ?>' >
+         <input type="text" class="form-control" id="rg" name="rg" value='<?php echo $rg; ?>' onkeypress="$(this).mask('00.000.000-00');">
         </div>
        </div>
        <div class="col-sm-6">
         <div class="form-group">
          <label for="nome">CPF</label>
-         <input type="text" class="form-control" id="cpf" name="cpf" value='<?php echo $cpf; ?>' >
+         <input type="text" class="form-control" id="cpf" name="cpf" value='<?php echo $cpf; ?>' onkeypress="$(this).mask('000.000.000-00');">
         </div>
        </div>
     </div>
@@ -221,25 +221,25 @@ include_once "../Model/Beneficios.php";
        <div class="col-sm-5">
         <div class="form-group">
          <label for="nome">TITULO ELEITORAL</label>
-         <input type="text" class="form-control" id="titulo_eleitoral" name="titulo_eleitoral" value='<?php echo $titulo_eleitoral; ?>' >
+         <input type="text" class="form-control" id="titulo_eleitoral" name="titulo_eleitoral" value='<?php echo $titulo_eleitoral; ?>' onkeypress="$(this).mask('0000 0000 0000');">
         </div>
        </div>
        <div class="col-sm-2">
         <div class="form-group">
          <label for="nome">ZONA</label>
-         <input type="text" class="form-control" id="zona" name="zona" value='<?php echo $zona_eleitoral; ?>' >
+         <input type="text" class="form-control" id="zona" name="zona" value='<?php echo $zona_eleitoral; ?>' onkeypress="$(this).mask('000');">
         </div>
        </div>
        <div class="col-sm-2">
         <div class="form-group">
          <label for="nome">SEÇÃO</label>
-         <input type="text" class="form-control" id="secao" name="secao" value='<?php echo $secao_eleitoral; ?>' >
+         <input type="text" class="form-control" id="secao" name="secao" value='<?php echo $secao_eleitoral; ?>' onkeypress="$(this).mask('0000');" >
         </div>
        </div>
        <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">NIS</label>
-         <input type="text" class="form-control" id="nis" name="nis" value='<?php echo $nis; ?>' >
+         <input type="text" class="form-control" id="nis" name="nis" value='<?php echo $nis; ?>' onkeypress="$(this).mask('000.00000.00-0');">
         </div>
        </div>
     </div>
@@ -637,7 +637,6 @@ include_once "../Model/Beneficios.php";
    
   }
   setTimeout("revalidar_beneficio()",400);
-  
 </script>
 
 <?php include_once "rodape.php"; ?>

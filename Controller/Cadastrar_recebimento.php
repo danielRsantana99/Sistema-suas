@@ -7,8 +7,10 @@ try {
     
     $use = new beneficiosModel();
     $id_beneficiario = $_POST['id_beneficiario']; 
+    $_SESSION['recebimento'] = $id_beneficiario; 
     $entregue = 'SIM'; 
-    $entregas= 0;
+    $id_beneficio = $_POST['beneficios']; 
+    $data = $_POST['data_recebimento'];
     
         function validaRecebimento($conexao,$use,$id_beneficiario,$id_beneficio,$data) {
         $validar = 0;
@@ -21,35 +23,20 @@ try {
 
         }
 
-    foreach ($_POST['beneficios'] as $key => $value){
-        $id_beneficio = $_POST['beneficios'][$key]; 
-        $data = $_POST['data_recebimento'][$key];
         $validacao = validaRecebimento($conexao,$use,$id_beneficiario,$id_beneficio,$data);
 
         if($validacao == 0){      
-            $use->cadastrar_recebimento($conexao,$id_beneficiario,$id_beneficio,$entregue,$data); 
+            $use->cadastrar_recebimento($conexao,$id_beneficiario,$id_beneficio,$entregue,$data);
+            $_SESSION['status'] = 1; 
+
         }else{
-            $entregas++;
-            $arrayDuplicados[] = $data; 
+            $_SESSION['mensagem'] = "esse recebimento  ja está cadastrado no sistema!!!";
+            $_SESSION['status'] = 0;
+
         }
         
-    }
-
-    if($entregas > 0){
-        $_SESSION['mensagem'] = "foi encontrado $entregas cadastrados ja presente no sistema. as duplicadas são:";
-            foreach ($arrayDuplicados as $key => $value) {
-
-                $dataencontrada = $value;
-                $_SESSION['mensagem'] .="$dataencontrada,";
-            }
-            
-        $_SESSION['mensagem'].=".Eles não foram registrados novamente";
-        $_SESSION['status'] = 0;  
-    }else{
-        $_SESSION['status'] = 1;    
-    }
     
-    header("location:../View/pesquisar_formulario.php");
+    header("location:../View/adicionar_recebimento.php");
     
 } catch (Exception $exc) {
     $_SESSION['mensagem'] = 'Este recebimento ja está cadastrado no sistema!!!';

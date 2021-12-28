@@ -7,11 +7,12 @@ include_once "alertas.php";
 include_once "../Model/Conexao.php"; 
 include_once "../Model/Formulario.php"; 
 include_once "../Model/Beneficios.php";
- 
-$id = $_POST['id'];
+
+$id = $_SESSION['recebimento'];
 $formulario = new formularioModel();
 $beneficio = new beneficiosModel();
 ?>
+
   <!-- Main Sidebar Container -->
 <div class="content-wrapper">
 <!-- ####################### CORPO ################################################# -->
@@ -25,7 +26,7 @@ $beneficio = new beneficiosModel();
           <center>  
             <h1 class="m-0">
               <b>
-                RECEBIMENTO DE BENEFICIOS
+                RECEBIMENTO DE BENEFICIOS 
               </b>
             </h1>
           </center>
@@ -53,12 +54,11 @@ $beneficio = new beneficiosModel();
           <div class="col-sm-4">
             <div class="form-group">
               <label for="exampleInputEmail1">BENEFÍCIO</label>
-              <select class="form-control"  id="beneficios" name="beneficios" >
+              <select class="form-control"  id="beneficios" name="beneficios">
               <?php
                 $res = $formulario->pesquisar_relacao_beneficio_beneficiario($conexao,$id);
                 foreach ($res as $key => $value) {
                   $id_beneficio = $value['id_beneficio'];
-
                   $res2 = $beneficio->pesquisar_beneficios($conexao,$id_beneficio);
                   foreach ($res2 as $key => $value) {
                     $nome = $value['nome'];
@@ -75,38 +75,50 @@ $beneficio = new beneficiosModel();
           <div class="col-sm-4" >
             <div class="form-group" style="margin-top: 8px;">
              <label for="exampleInputEmail1" class="text-white"></label>
-             <a class="btn btn-block btn-success" onclick="adicionar_beneficio_recebimento();">ADICIONAR</a>
+             <button type="submit" class="btn btn-block btn-success">ADICIONAR</button>
             </div>
           </div>
         </div>
-        <br>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-block btn-primary">Concluir</button>
-        </div>
       </div>
     </form>
-     <div class="row">
+    <div class="row">
+      <div class="col-sm-12">
         <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">BENEFÍCIO</th>
-                <th scope="col">DATA DO RECEBIMENTO</th>
-              </tr>
-            </thead>
-            <tbody id="tabela_beneficios">
-              <tr>
-                <td> </td>
-                <td> </td>
-              </tr>
-            </tbody>
-        </table>
-    </div>
+          <thead>
+            <tr>
+                <th></th>
+                <th>BENEFÍCIO</th>
+                <th>DATA RECEBIMENTO</th>  
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+              $res3 = $beneficio->listar_recebimento($conexao,$id); 
+              foreach ($res3 as $key => $value) {
+                $id_beneficio2 = $value['id_beneficio'];
+                $datas = new DateTime($value['data_recebimento']);
+                $data_registro = $datas->format('d/m/Y');
+                $res4 = $beneficio->pesquisar_beneficios($conexao,$id_beneficio2);
+                foreach ($res4 as $key => $value) {
+                   $nome_beneficio = $value['nome'];
+                    echo "<tr>
+                      <td></td>
+                      <td>$nome_beneficio</td>
+                      <td>$data_registro</td>
+                      </tr>";
+                }
+               
+              }
 
+
+             ?>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
 </div>
     
-
-
-
 
 
 <!-- ######################################################################## -->
