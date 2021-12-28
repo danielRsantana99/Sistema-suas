@@ -99,7 +99,7 @@ $usuario = new usuarioModel();
               ";
             }
             ?>
-            <option value="nenhum">nenhum</option>
+          
            </select> 
           </div>
         </div>
