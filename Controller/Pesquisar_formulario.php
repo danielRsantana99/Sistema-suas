@@ -39,6 +39,38 @@ try {
             </thead>
             <tbody>";
     if($beneficio == 'nenhum'){
+
+        if($unidade1 == 'todos' && $situacao != 'todos' && $status != 'todos' ){
+
+            $res=$formulario->p_f_s_b_u($conexao,$pesquisa,$status,$situacao,$data_inicial,$data_final);
+
+        }elseif ($unidade1 == 'todos' && $situacao == 'todos' && $status != 'todos') {
+
+            $res=$formulario->p_f_s_b_u_s($conexao,$pesquisa,$status,$data_inicial,$data_final);
+        }elseif ($unidade1 == 'todos' && $situacao == 'todos' && $status == 'todos') {
+
+            $res=$formulario->p_f_s_b_u_st_s($conexao,$pesquisa,$data_inicial,$data_final);
+
+        }elseif ($unidade1 != 'todos' && $situacao == 'todos' && $status != 'todos') {
+
+            $res=$formulario->p_f_s_b_s($conexao,$pesquisa,$unidade,$status,$data_inicial,$data_final);
+
+        }elseif ($unidade1 != 'todos' && $situacao == 'todos' && $status == 'todos') {
+
+            $res=$formulario->p_f_s_b_st_s($conexao,$pesquisa,$unidade,$data_inicial,$data_final);
+
+        }elseif ($unidade1 != 'todos' && $situacao != 'todos' && $status == 'todos') {
+
+            $res=$formulario->p_f_s_b_st($conexao,$pesquisa,$unidade,$situacao,$data_inicial,$data_final);
+
+        }elseif ($unidade1 == 'todos' && $situacao != 'todos' && $status == 'todos') {
+
+            $res=$formulario->p_f_s_b_u_st($conexao,$pesquisa,$situacao,$data_inicial,$data_final);
+        }else{
+            
+            $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade1,$status,$situacao,$data_inicial,$data_final);
+        }
+
         $res=$formulario->pesquisar_formulario_sem_beneficio($conexao,$pesquisa,$unidade,$status,$situacao,$data_inicial,$data_final);
     }else if($unidade1 == 'todos' && $situacao != 'todos' && $status != 'todos' && $beneficio != 'todos')
     {

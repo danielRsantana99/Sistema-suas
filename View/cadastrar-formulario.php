@@ -332,7 +332,7 @@ $beneficios = array();
       <div class="col-sm-3">
         <div class="form-group">
          <label for="nome">ESCOLARIDADE</label>
-         <input type="text" class="form-control" id="escolaridade" >
+         <input type="text" class="form-control" id="escolaridade_familiar" >
         </div>
       </div>
       <div class="col-sm-3">
@@ -364,7 +364,7 @@ $beneficios = array();
               <th scope="col">SEXO</th>
               <th scope="col">PARENTESCO</th>
               <th scope="col">IDADE</th>
-              <th scope="col">ESCOLARIDADE/PROFISSÃO</th>
+              <th scope="col">ESCOLARIDADE</th>
               <th scope="col">RENDA</th>
               <th scope="col">PROFISSÃO</th>
               <th scope="col">OPÇÕES</th>
